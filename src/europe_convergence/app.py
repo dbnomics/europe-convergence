@@ -69,7 +69,7 @@ def main() -> None:
         )
 
     if selected == "Explanations":
-        st.markdown("---")
+        st.markdown("In progress...")
 
     if selected == "GDP":
         df_gdp = download_gdp_data()

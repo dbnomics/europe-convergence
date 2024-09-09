@@ -1,7 +1,7 @@
 [project]
 name = "europe-convergence"
 version = "0.1.0"
-description = "Add your description here"
+description = "European Convergence with DBnomics Data"
 authors = [
     { name = "Juliette.Bornier", email = "juliette.bornier.3110@gmail.com" }
 ]
@@ -13,6 +13,8 @@ dependencies = [
     "streamlit-option-menu>=0.3.13",
     "plotly>=5.24.0",
     "plotly-express>=0.4.1",
+    "ipykernel>=6.29.5",
+    "pip>=24.2",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"

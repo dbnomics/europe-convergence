@@ -1,3 +1,4 @@
+from matplotlib.figure import figaspect
 import pandas as pd
 import plotly.express as px
 
@@ -112,14 +113,14 @@ def plot_hicp(hicp):
 def plot_lng_int_rate(lng_int_rt):
     lng_int_rt["original_period"] = pd.to_datetime(lng_int_rt["original_period"], errors="coerce")
     lng_int_rt["original_period"] = lng_int_rt["original_period"].dt.strftime("%Y-%m")
-    hicp = lng_int_rt.rename(
+    lng_int_rt = lng_int_rt.rename(
         columns={
             "original_period": "Date",
             "Geopolitical entity (reporting)": "Country",
         }
     )
     fig = px.line(
-        hicp,
+        lng_int_rt,
         x="Date",
         y="original_value",
         color="Country",
@@ -146,3 +147,79 @@ def plot_lng_int_rate(lng_int_rt):
     )
     
     return fig
+
+def plot_debt(debt):
+    debt["original_periode"] = pd.to_datetime(debt["original_period"], errors= "coerce")
+    debt = debt.rename(
+        columns={
+            "original_value" : "Debt",
+            "WEO Country" : "Country"
+
+    }
+    )
+    fig = px.line(
+        debt,
+        x="original_period",
+        y="Debt",
+        color="Country",
+        title="General government gross debt - Percent of GDP",
+        labels={
+            "original_period": "Year",
+            "Debt": "General government gross debt",
+            "Country": "European Union Countries",
+        },
+        custom_data=["original_period", "Debt", "Country"],
+    )
+
+    fig.update_traces(
+        hovertemplate="<br>".join(
+            [
+                "Country: %{customdata[2]}",
+                "Year: %{customdata[0]}",
+                "General government gross debt (% of GDP): %{customdata[1]}",
+            ]
+        )
+    )
+    fig.update_layout(
+        height=800,
+    )
+    
+    return fig
+
+def plot_deficit(deficit):
+    deficit["original_period"] = pd.to_datetime(deficit["original_period"], errors="coerce")
+    deficit["original_period"] = deficit["original_period"].dt.strftime("%Y")
+    deficit = deficit.rename(
+        columns={
+            "original_period": "Date",
+            "Geopolitical entity (reporting)": "Country",
+        }
+    )
+    fig = px.line(
+        deficit,
+        x="Date",
+        y="original_value",
+        color="Country",
+        title="Percentage of gross domestic product (GDP) – General government – Net lending (+) /net borrowing (-)",
+        labels={
+            "Date": "Date",
+            "original_value": "General Government - Net lending - Net Borrowin (% of GDP)",
+            "Country": "European Union Countries",
+        },
+        custom_data=["Date", "original_value", "Country"],
+    )
+
+    fig.update_traces(
+        hovertemplate="<br>".join(
+            [
+                "Country: %{customdata[2]}",
+                "Date: %{customdata[0]}",
+                "General Government - Net lending - Net Borrowin (% of GDP): %{customdata[1]}",
+            ]
+        )
+    )
+    fig.update_layout(
+        height=800,
+    )
+    return fig
+    

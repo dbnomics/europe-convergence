@@ -21,7 +21,6 @@ def main() -> None:
         page_icon=str(package_dir / "images/favicon.png"),
     )
     st.image(str(package_dir / "images/dbnomics.svg"), width=300)
-    st.title(":blue[A Convergence of the European Union Countries ?]")
 
     def local_css(file_name):
         with open(file_name) as f:
@@ -45,7 +44,6 @@ def main() -> None:
         unsafe_allow_html=True,
     )
 
-    st.markdown("---")
     with st.sidebar:
         selected = option_menu(
             menu_title="Menu",
@@ -70,6 +68,7 @@ def main() -> None:
         )
 
     if selected == "Explanations":
+        st.title(":blue[A Convergence of the European Union Countries ?]")
         st.header("What is meant by convergence ?")
         st.write(
             'After its creation and multiple expansions, the European Union had to implement "convergence criteria" to ensure harmony and stability.\n'
@@ -127,49 +126,64 @@ def main() -> None:
         )
     if selected == "GDP & GDP Per Capita":
         df_gdp = download_gdp_data()
-        fig1 = plot_gdp(df_gdp)
-        st.plotly_chart(fig1)
-
         df_gdp_cap = download_gdp_percap()
-        fig2 = plot_gdp_percap(df_gdp_cap)
-        st.plotly_chart(fig2)
-
-        st.subheader("Dataset GDP")
-        st.write(df_gdp)
-
-
-        st.subheader("Dataset GDP Per Capita")
-        st.write(df_gdp_cap)
+        tab1, tab2, tab3 = st.tabs([" GDP:bar_chart:", "GDP per Capita :bar_chart:", "Data :file_folder:"])
+        with tab1:
+            fig1 = plot_gdp(df_gdp)
+            st.plotly_chart(fig1)
+        with tab2:
+            fig2 = plot_gdp_percap(df_gdp_cap)
+            st.plotly_chart(fig2)
+        with tab3:
+            col1, col2 = st.columns(2)
+            with col1:
+                st.subheader("Dataset GDP")
+                st.write(df_gdp)
+            with col2:
+                st.subheader("Dataset GDP per Capita")
+                st.write(df_gdp_cap)
 
     if selected == "Public Finance Sustainability":
         st.write(":blue[**According to the Maastricht criteria, the public deficit of a European Union member state must not exceed 3% of GDP.**]")
         df_debt = download_debt_data()
         df_deficit = download_deficit()
-        fig = plot_debt(df_debt)
-        st.plotly_chart(fig)
-        fig1 = plot_deficit(df_deficit)
-        st.plotly_chart(fig1)
-        st.subheader("Dataset General Governement Debt")
-        st.write(df_debt)
-        
-        st.subheader("Dataset Deficit")
-        st.write(df_deficit)
+        tab1, tab2, tab3 = st.tabs(["General Government Debt :bar_chart:", "Deficit :bar_chart:", "Data :file_folder:"])
+        with tab1:
+            fig = plot_debt(df_debt)
+            st.plotly_chart(fig)
+        with tab2:
+            fig1 = plot_deficit(df_deficit)
+            st.plotly_chart(fig1)
+        with tab3:
+            col1, col2 = st.columns(2)
+            with col1:
+                st.subheader("Dataset General Governement Debt")
+                st.write(df_debt)
+            with col2:
+                st.subheader("Dataset Deficit")
+                st.write(df_deficit)
 
     if selected == "Price Stability":
         st.write(":blue[**Inflation rate cannot exceed by more than 1.5 percentage points that of the three best performing members.**]")
         df_hicp = download_hicp_data()
-        fig = plot_hicp(df_hicp)
-        st.plotly_chart(fig)
-        st.subheader("Dataset")
-        st.write(df_hicp)
+        tab1, tab2 = st.tabs(["Inflation Rate :bar_chart:", "Data :file_folder:"])
+        with tab1:
+            fig = plot_hicp(df_hicp)
+            st.plotly_chart(fig)
+        with tab2:
+            st.subheader("Dataset")
+            st.write(df_hicp)
 
     if selected == "Long Term Interest Rate":
         st.write(":blue[**The long-term interest rate should not exceed by more than two percentage points that of the three best-performing member states in terms of price stability.**]")
         df_lng_rt = download_lng_int_rate()
-        fig = plot_lng_int_rate(df_lng_rt)
-        st.plotly_chart(fig)
-        st.subheader("Dataset")
-        st.write(df_lng_rt)
+        tab1, tab2 = st.tabs(["Long Term Interest Rate :bar_chart:", "Data :file_folder:"])
+        with tab1:
+            fig = plot_lng_int_rate(df_lng_rt)
+            st.plotly_chart(fig)
+        with tab2:
+            st.subheader("Dataset")
+            st.write(df_lng_rt)
     
     if selected == "Sources":
         st.subheader("**Data**")

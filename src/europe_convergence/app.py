@@ -82,8 +82,8 @@ def main() -> None:
             "The Euro Area could be describe as a **Monetary  Union** and define as a geographic area made up of the 20 countries that have adopted the euro as their unique currency.\n"
             "The economic integration is a specific economic organization in which there are free movements of goods, people and capital that leads to the convergence of good prices, production factor prices and wages.\n"
             "A strict convergence only appeared in perfectly integrated economics.\n"
-            'In many cases, the "automatic convergent" never happens due to increasing returns to scale (the more a firm produces a good the lower the average cost).\n'
-            'To measure the degree of integration of a Monetary Union, looking at the "convergence" is a good indicator.\n'
+            "In many cases, the \"automatic convergence\" never happens due to increasing returns to scale (the more a firm produces a good the lower the average cost).\n"
+            "To measure the degree of integration of a Monetary Union, looking at the \"convergence\" is a good indicator.\n"
             "- The absence of convergence could lead to important macroeconomic unbalances between members. Example : the sovereign debt crisis has shown the risks of wide gaps between economies.\n"
             "- In the Euro Area, the adoption of a single currency could create economic distortions if economies don't converge : some countries become more competitive leading to trade imbalances.\n"
             "- To be effective, the Monetary Policy requires that economies are similar: policies that could suit some countries be inadequate for others.\n"
@@ -157,7 +157,7 @@ def main() -> None:
         with tab3:
             col1, col2 = st.columns(2)
             with col1:
-                st.subheader("Dataset General Governement Debt")
+                st.subheader("Dataset Debt")
                 st.write(df_debt)
             with col2:
                 st.subheader("Dataset Deficit")

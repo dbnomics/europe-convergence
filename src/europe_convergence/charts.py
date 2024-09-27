@@ -3,31 +3,27 @@ import pandas as pd
 import plotly.express as px
 
 
-def plot_gdp(gdp_data):
-    gdp_data["original_period"] = pd.to_datetime(
-        gdp_data["original_period"], errors="coerce"
-    )
-    gdp_data["original_period"] = gdp_data["original_period"].dt.strftime("%Y")
-    gdp_data = gdp_data.rename(columns={"original_period": "Year"})
+def plot_gdp(df_gdp):
+    df_gdp = df_gdp.rename(columns={"original_period": "Years"})
     fig = px.line(
-        gdp_data,
-        x="Year",
+        df_gdp,
+        x="Years",
         y="value",
-        color="country (label)",
+        color="Geopolitical entity (reporting)",
         title="Evolution of Gross Domestic Production",
         labels={
-            "Year": "Year",
+            "Years": "Years",
             "value": "GDP",
-            "country (label)": "European Union Countries",
+            "Geopolitical entity (reporting)": "European Union Countries",
         },
-        custom_data=["Year", "value", "country (label)"],
+        custom_data=["Years", "value", "Geopolitical entity (reporting)"],
     )
 
     fig.update_traces(
         hovertemplate="<br>".join(
             [
                 "Country: %{customdata[2]}",
-                "Year: %{customdata[0]}",
+                "Date: %{customdata[0]}",
                 "GDP: %{customdata[1]}",
             ]
         )
@@ -38,31 +34,27 @@ def plot_gdp(gdp_data):
     return fig
 
 
-def plot_gdp_percap(gdp_percap):
-    gdp_percap["original_period"] = pd.to_datetime(
-        gdp_percap["original_period"], errors="coerce"
-    )
-    gdp_percap["original_period"] = gdp_percap["original_period"].dt.strftime("%Y")
-    gdp_percap = gdp_percap.rename(columns={"original_period": "Year"})
+def plot_gdp_percap(df_gdp_percap):
+    df_gdp_percap = df_gdp_percap.rename(columns={"original_period": "Years"})
     fig = px.line(
-        gdp_percap,
-        x="Year",
+        df_gdp_percap,
+        x="Years",
         y="value",
-        color="country (label)",
+        color="Geopolitical entity (reporting)",
         title="Evolution of Gross Domestic Production per Capita",
         labels={
-            "Year": "Year",
+            "Years": "Years",
             "value": "GDP per capita",
-            "country (label)": "European Union Countries",
+            "Geopolitical entity (reporting)": "European Union Countries",
         },
-        custom_data=["Year", "value", "country (label)"],
+        custom_data=["Years", "value", "Geopolitical entity (reporting)"],
     )
 
     fig.update_traces(
         hovertemplate="<br>".join(
             [
                 "Country: %{customdata[2]}",
-                "Year: %{customdata[0]}",
+                "Date: %{customdata[0]}",
                 "GDP per capita: %{customdata[1]}",
             ]
         )
@@ -73,23 +65,23 @@ def plot_gdp_percap(gdp_percap):
     return fig
 
 
-def plot_hicp(hicp):
-    hicp["original_period"] = pd.to_datetime(hicp["original_period"], errors="coerce")
-    hicp["original_period"] = hicp["original_period"].dt.strftime("%Y-%m")
-    hicp = hicp.rename(
+def plot_hicp(df_hicp):
+    df_hicp["original_period"] = pd.to_datetime(df_hicp["original_period"], errors="coerce")
+    df_hicp["original_period"] = df_hicp["original_period"].dt.strftime("%Y-%m")
+    df_hicp = df_hicp.rename(
         columns={
             "original_period": "Date",
             "Geopolitical entity (reporting)": "Country",
         }
     )
     fig = px.line(
-        hicp,
+        df_hicp,
         x="Date",
         y="original_value",
         color="Country",
-        title="Evolution of harmonised index of consumer prices (HICP) per European Union Countries",
+        title="Evolution of harmonised index of consumer prices (HICP)",
         labels={
-            "Date": "Date",
+            "Date": "Years",
             "original_value": "HICP (Index, 2015=100)",
             "Country": "European Union Countries",
         },
@@ -124,9 +116,9 @@ def plot_lng_int_rate(lng_int_rt):
         x="Date",
         y="original_value",
         color="Country",
-        title="Evolution of harmonised index of consumer prices (HICP) per European Union Countries",
+        title="Evolution of Long term interest rate - convergence criterion",
         labels={
-            "Date": "Date",
+            "Date": "Years",
             "original_value": "Long term interest rate - convergence criterion",
             "Country": "European Union Countries",
         },
@@ -148,23 +140,22 @@ def plot_lng_int_rate(lng_int_rt):
     
     return fig
 
-def plot_debt(debt):
-    debt["original_periode"] = pd.to_datetime(debt["original_period"], errors= "coerce")
-    debt = debt.rename(
+def plot_debt(df_debt):
+    df_debt = df_debt.rename(
         columns={
             "original_value" : "Debt",
-            "WEO Country" : "Country"
+            "Geopolitical entity (reporting)" : "Country"
 
     }
     )
     fig = px.line(
-        debt,
+        df_debt,
         x="original_period",
         y="Debt",
         color="Country",
         title="General government gross debt - Percent of GDP",
         labels={
-            "original_period": "Year",
+            "original_period": "Years",
             "Debt": "General government gross debt",
             "Country": "European Union Countries",
         },
@@ -175,7 +166,7 @@ def plot_debt(debt):
         hovertemplate="<br>".join(
             [
                 "Country: %{customdata[2]}",
-                "Year: %{customdata[0]}",
+                "Date: %{customdata[0]}",
                 "General government gross debt (% of GDP): %{customdata[1]}",
             ]
         )
@@ -186,23 +177,23 @@ def plot_debt(debt):
     
     return fig
 
-def plot_deficit(deficit):
-    deficit["original_period"] = pd.to_datetime(deficit["original_period"], errors="coerce")
-    deficit["original_period"] = deficit["original_period"].dt.strftime("%Y")
-    deficit = deficit.rename(
+def plot_deficit(df_deficit):
+    df_deficit["original_period"] = pd.to_datetime(df_deficit["original_period"], errors="coerce")
+    df_deficit["original_period"] = df_deficit["original_period"].dt.strftime("%Y")
+    df_deficit = df_deficit.rename(
         columns={
             "original_period": "Date",
             "Geopolitical entity (reporting)": "Country",
         }
     )
     fig = px.line(
-        deficit,
+        df_deficit,
         x="Date",
         y="original_value",
         color="Country",
         title="Percentage of gross domestic product (GDP) – General government – Net lending (+) /net borrowing (-)",
         labels={
-            "Date": "Date",
+            "Date": "Years",
             "original_value": "General Government - Net lending - Net Borrowin (% of GDP)",
             "Country": "European Union Countries",
         },
